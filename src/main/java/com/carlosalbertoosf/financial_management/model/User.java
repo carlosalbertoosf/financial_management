@@ -2,6 +2,7 @@ package com.carlosalbertoosf.financial_management.model;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -20,6 +21,9 @@ class User {
 
     @Column(nullable = false, length = 15)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<Transaction> transactions;
 
     public Long getId() {
         return id;
