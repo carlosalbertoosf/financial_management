@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: financial-management
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/financial_management?useTimezone=true&serverTimezone=UTC
+    username: carlos.albertof
+    password: c@F#317955
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
