@@ -3,7 +3,7 @@ spring:
     name: financial-management
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/financial?useTimezone=true&serverTimezone=UTC
+    url: jdbc:postgresql://localhost:5432/financial_management?useTimezone=true&serverTimezone=UTC
     username: carlos.albertof
     password: c@F#317955
 

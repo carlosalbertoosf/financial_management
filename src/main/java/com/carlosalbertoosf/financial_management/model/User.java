@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Table(name = "usuario")
 public class User {
 
     @Id
@@ -19,7 +18,7 @@ public class User {
     @Column(nullable = false, unique = true, length = 80)
     private String email;
 
-    @Column(nullable = false, length = 15)
+    @Column(nullable = false, length = 255)
     private String password;
 
     @OneToMany(mappedBy = "user")
