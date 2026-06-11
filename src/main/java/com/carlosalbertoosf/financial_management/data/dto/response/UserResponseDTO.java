@@ -1,8 +1,5 @@
-package com.carlosalbertoosf.financial_management.dto.response;
+package com.carlosalbertoosf.financial_management.data.dto.response;
 
-import com.carlosalbertoosf.financial_management.model.Transaction;
-
-import java.util.List;
 import java.util.Objects;
 
 public class UserResponseDTO {

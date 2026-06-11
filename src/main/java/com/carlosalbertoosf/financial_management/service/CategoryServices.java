@@ -1,7 +1,7 @@
 package com.carlosalbertoosf.financial_management.service;
 
-import com.carlosalbertoosf.financial_management.dto.request.CategoryRequestDTO;
-import com.carlosalbertoosf.financial_management.dto.response.CategoryResponseDTO;
+import com.carlosalbertoosf.financial_management.data.dto.request.CategoryRequestDTO;
+import com.carlosalbertoosf.financial_management.data.dto.response.CategoryResponseDTO;
 import com.carlosalbertoosf.financial_management.model.Category;
 import com.carlosalbertoosf.financial_management.repository.CategoryRepository;
 import static com.carlosalbertoosf.financial_management.mapper.ObjectMapper.parseObject;

@@ -1,4 +1,4 @@
-package com.carlosalbertoosf.financial_management.dto.request;
+package com.carlosalbertoosf.financial_management.data.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

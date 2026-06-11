@@ -1,4 +1,4 @@
-package com.carlosalbertoosf.financial_management.dto.response;
+package com.carlosalbertoosf.financial_management.data.dto.response;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
