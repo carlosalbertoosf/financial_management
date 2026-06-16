@@ -3,6 +3,7 @@ package com.carlosalbertoosf.financial_management.data.dto.request;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Objects;
 
 public class TransactionRequestDTO {
@@ -13,10 +14,13 @@ public class TransactionRequestDTO {
         BigDecimal amount;
 
         @NotNull
+        LocalDate date;
+
+        @NotNull
         Long categoryId;
 
         @NotNull
-        Long userI;
+        Long userId;
 
         public String getDescription() {
                 return description;
@@ -30,6 +34,8 @@ public class TransactionRequestDTO {
                 return amount;
         }
 
+        public LocalDate getDate() { return date; }
+
         public void setAmount(BigDecimal amount) {
                 this.amount = amount;
         }
@@ -38,27 +44,19 @@ public class TransactionRequestDTO {
                 return categoryId;
         }
 
-        public void setCategoryId(Long categoryId) {
-                this.categoryId = categoryId;
-        }
-
-        public Long getUserI() {
-                return userI;
-        }
-
-        public void setUserI(Long userI) {
-                this.userI = userI;
+        public Long getUserId() {
+                return userId;
         }
 
         @Override
         public boolean equals(Object o) {
                 if (o == null || getClass() != o.getClass()) return false;
                 TransactionRequestDTO that = (TransactionRequestDTO) o;
-                return Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getAmount(), that.getAmount()) && Objects.equals(getCategoryId(), that.getCategoryId()) && Objects.equals(getUserI(), that.getUserI());
+                return Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getAmount(), that.getAmount()) && Objects.equals(getCategoryId(), that.getCategoryId()) && Objects.equals(getUserId(), that.getUserId());
         }
 
         @Override
         public int hashCode() {
-                return Objects.hash(getDescription(), getAmount(), getCategoryId(), getUserI());
+                return Objects.hash(getDescription(), getAmount(), getCategoryId(), getUserId());
         }
 }

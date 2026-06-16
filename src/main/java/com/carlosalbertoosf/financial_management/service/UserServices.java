@@ -7,9 +7,11 @@ import com.carlosalbertoosf.financial_management.repository.UserRepository;
 import static com.carlosalbertoosf.financial_management.mapper.ObjectMapper.parseObject;
 import static com.carlosalbertoosf.financial_management.mapper.ObjectMapper.parseListObjects;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class UserServices {
 
     @Autowired
