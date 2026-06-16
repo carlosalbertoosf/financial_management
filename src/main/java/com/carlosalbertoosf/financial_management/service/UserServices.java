@@ -42,6 +42,7 @@ public class UserServices {
 
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
+        user.setPassword(userDTO.getPassword());
 
         return parseObject(userRepository.save(user), UserResponseDTO.class);
     }
