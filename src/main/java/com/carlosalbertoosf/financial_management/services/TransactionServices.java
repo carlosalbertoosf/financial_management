@@ -1,4 +1,4 @@
-package com.carlosalbertoosf.financial_management.service;
+package com.carlosalbertoosf.financial_management.services;
 
 import com.carlosalbertoosf.financial_management.data.dto.request.TransactionRequestDTO;
 import com.carlosalbertoosf.financial_management.data.dto.response.TransactionResponseDTO;
