@@ -34,19 +34,13 @@ public class TransactionRequestDTO {
                 return amount;
         }
 
+        public void setAmount(BigDecimal amount) { this.amount = amount; }
+
         public LocalDate getDate() { return date; }
 
-        public void setAmount(BigDecimal amount) {
-                this.amount = amount;
-        }
+        public Long getCategoryId() { return categoryId; }
 
-        public Long getCategoryId() {
-                return categoryId;
-        }
-
-        public Long getUserId() {
-                return userId;
-        }
+        public Long getUserId() { return userId; }
 
         @Override
         public boolean equals(Object o) {

@@ -2,6 +2,7 @@ package com.carlosalbertoosf.financial_api.services;
 
 import com.carlosalbertoosf.financial_api.data.dto.request.TransactionRequestDTO;
 import com.carlosalbertoosf.financial_api.data.dto.response.TransactionResponseDTO;
+import com.carlosalbertoosf.financial_api.mapper.custom.TransactionMapper;
 import com.carlosalbertoosf.financial_api.model.Category;
 import com.carlosalbertoosf.financial_api.model.Transaction;
 import com.carlosalbertoosf.financial_api.model.User;
@@ -10,7 +11,7 @@ import com.carlosalbertoosf.financial_api.repository.TransactionRepository;
 import com.carlosalbertoosf.financial_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import static com.carlosalbertoosf.financial_api.mapper.ObjectMapper.parseObject;
+
 import static com.carlosalbertoosf.financial_api.mapper.ObjectMapper.parseListObjects;
 
 import java.util.List;
@@ -22,10 +23,13 @@ public class TransactionServices {
     private TransactionRepository transactionRepository;
 
     @Autowired
+    private CategoryRepository categoryRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    TransactionMapper converter;
 
     public List<TransactionResponseDTO> findAll() {
         return parseListObjects(transactionRepository.findAll(), TransactionResponseDTO.class);
@@ -34,7 +38,7 @@ public class TransactionServices {
     public TransactionResponseDTO findById(Long id) {
         Transaction transaction = transactionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Transaction with id " + id + " not found"));
-        return parseObject(transaction, TransactionResponseDTO.class);
+        return converter.toDTO(transaction);
     }
 
     public TransactionResponseDTO create(TransactionRequestDTO dto){
@@ -45,16 +49,15 @@ public class TransactionServices {
                 .orElseThrow(() -> new RuntimeException("Category with id " + dto.getCategoryId() + " not found"));
 
         Transaction transaction = new Transaction();
-
         transaction.setDescription(dto.getDescription());
         transaction.setAmount(dto.getAmount());
         transaction.setDate(dto.getDate());
         transaction.setCategory(category);
         transaction.setUser(user);
 
-        Transaction entitySaved = transactionRepository.save(transaction);
+        transactionRepository.save(transaction);
 
-        return parseObject(entitySaved, TransactionResponseDTO.class);
+        return converter.toDTO(transaction);
     }
 
     public TransactionResponseDTO update(Long id, TransactionRequestDTO dto) {
@@ -65,7 +68,9 @@ public class TransactionServices {
         transaction.setAmount(dto.getAmount());
         transaction.setDate(dto.getDate());
 
-        return parseObject(transactionRepository.save(transaction), TransactionResponseDTO.class);
+        transactionRepository.save(transaction);
+
+        return converter.toDTO(transaction);
     }
 
     public void delete(Long id) {
