@@ -63,15 +63,23 @@ public class Transaction {
         this.date = date;
     }
 
+    public Category getCategory() { return category; }
+
+    public void setCategory(Category category) { this.category = category; }
+
+    public User getUser() { return user; }
+
+    public void setUser(User user) { this.user = user; }
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Transaction that = (Transaction) o;
-        return Objects.equals(getId(), that.getId()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getAmount(), that.getAmount()) && Objects.equals(getDate(), that.getDate()) && Objects.equals(category, that.category) && Objects.equals(user, that.user);
+        return Objects.equals(getId(), that.getId()) && Objects.equals(getDescription(), that.getDescription()) && Objects.equals(getAmount(), that.getAmount()) && Objects.equals(getDate(), that.getDate()) && Objects.equals(getCategory(), that.getCategory()) && Objects.equals(getUser(), that.getUser());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getDescription(), getAmount(), getDate(), category, user);
+        return Objects.hash(getId(), getDescription(), getAmount(), getDate(), getCategory(), getUser());
     }
 }
