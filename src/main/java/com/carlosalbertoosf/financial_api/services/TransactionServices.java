@@ -32,7 +32,7 @@ public class TransactionServices {
     TransactionMapper converter;
 
     public List<TransactionResponseDTO> findAll() {
-        return parseListObjects(transactionRepository.findAll(), TransactionResponseDTO.class);
+        return converter.listToDTOs(transactionRepository.findAll());
     }
 
     public TransactionResponseDTO findById(Long id) {

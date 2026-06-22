@@ -4,6 +4,9 @@ import com.carlosalbertoosf.financial_api.data.dto.response.TransactionResponseD
 import com.carlosalbertoosf.financial_api.model.Transaction;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class TransactionMapper {
 
@@ -17,5 +20,15 @@ public class TransactionMapper {
         dto.setCategoryName(transaction.getCategory().getName());
         dto.setUserName(transaction.getUser().getName());
         return dto;
+    }
+
+    public List<TransactionResponseDTO> listToDTOs(List<Transaction> transactions) {
+        List<TransactionResponseDTO> listDTOs = new ArrayList<>();
+
+        for (Transaction transaction : transactions) {
+            TransactionResponseDTO dto = toDTO(transaction);
+            listDTOs.add(dto);
+        }
+        return listDTOs;
     }
 }
