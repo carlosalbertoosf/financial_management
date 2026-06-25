@@ -1,2 +1,2 @@
-# financial_management
+# personal-finance-api
 A system for personal financial management
