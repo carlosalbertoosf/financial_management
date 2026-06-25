@@ -12,8 +12,6 @@ import com.carlosalbertoosf.financial_api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import static com.carlosalbertoosf.financial_api.mapper.ObjectMapper.parseListObjects;
-
 import java.util.List;
 
 @Service
