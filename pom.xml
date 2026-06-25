@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>carlosalbertoosf</groupId>
-	<artifactId>financial_api</artifactId>
+	<artifactId>personal-finance-api</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
@@ -64,8 +64,8 @@
 		</dependency>
 
 		<dependency>
-			<groupId>jakarta.validation</groupId>
-			<artifactId>jakarta.validation-api</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 	</dependencies>
 
