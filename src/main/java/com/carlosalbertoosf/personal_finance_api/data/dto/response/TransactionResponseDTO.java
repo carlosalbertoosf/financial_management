@@ -1,10 +1,12 @@
 package com.carlosalbertoosf.personal_finance_api.data.dto.response;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class TransactionResponseDTO {
+public class TransactionResponseDTO extends RepresentationModel<TransactionResponseDTO> {
     Long id;
 
     String description;

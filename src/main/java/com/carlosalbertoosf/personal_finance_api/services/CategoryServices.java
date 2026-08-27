@@ -1,5 +1,6 @@
 package com.carlosalbertoosf.personal_finance_api.services;
 
+import com.carlosalbertoosf.personal_finance_api.controllers.CategoryController;
 import com.carlosalbertoosf.personal_finance_api.data.dto.request.CategoryRequestDTO;
 import com.carlosalbertoosf.personal_finance_api.data.dto.response.CategoryResponseDTO;
 import com.carlosalbertoosf.personal_finance_api.model.Category;
@@ -7,6 +8,8 @@ import com.carlosalbertoosf.personal_finance_api.repository.CategoryRepository;
 import static com.carlosalbertoosf.personal_finance_api.mapper.ObjectMapper.parseObject;
 import static com.carlosalbertoosf.personal_finance_api.mapper.ObjectMapper.parseListObjects;
 import org.springframework.beans.factory.annotation.Autowired;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,14 +21,18 @@ public class CategoryServices {
     CategoryRepository categoryRepository;
 
     public List<CategoryResponseDTO> findAll() {
-        return parseListObjects(categoryRepository.findAll(), CategoryResponseDTO.class);
+        var categories = parseListObjects(categoryRepository.findAll(), CategoryResponseDTO.class);
+        categories.forEach(this::addHateoasLinks);
+        return categories;
     }
 
     public CategoryResponseDTO findById(Long id) {
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Category not found!"));
 
-        return parseObject(category, CategoryResponseDTO.class);
+        var dto = parseObject(category, CategoryResponseDTO.class);
+        addHateoasLinks(dto);
+        return dto;
     }
 
     public CategoryResponseDTO create(CategoryRequestDTO dto) {
@@ -33,7 +40,9 @@ public class CategoryServices {
 
         Category categorySaved = categoryRepository.save(category);
 
-        return parseObject(categorySaved, CategoryResponseDTO.class);
+        var responseDTO = parseObject(categorySaved, CategoryResponseDTO.class);
+        addHateoasLinks(responseDTO);
+        return responseDTO;
     }
 
     public CategoryResponseDTO update(Long id, CategoryRequestDTO dto) {
@@ -44,7 +53,9 @@ public class CategoryServices {
 
       categoryRepository.save(category);
 
-      return parseObject(category, CategoryResponseDTO.class);
+      var responseDTO = parseObject(category, CategoryResponseDTO.class);
+      addHateoasLinks(responseDTO);
+      return responseDTO;
     }
 
     public void delete(Long id) {
@@ -53,4 +64,32 @@ public class CategoryServices {
 
         categoryRepository.delete(category);
     }
-}
+
+    private void addHateoasLinks(CategoryResponseDTO dto) {
+        dto.add(linkTo(methodOn(CategoryController.class)
+                .findById(dto.getId()))
+                .withSelfRel()
+                .withType("GET"));
+
+        dto.add(linkTo(methodOn(CategoryController.class)
+                .findAll())
+                .withRel("findAll")
+                .withType("GET"));
+
+        dto.add(linkTo(methodOn(CategoryController.class)
+                .create(null))
+                .withRel("create")
+                .withType("POST"));
+
+        dto.add(linkTo(methodOn(CategoryController.class)
+                .update(dto.getId(), null))
+                .withRel("update")
+                .withType("PUT"));
+
+        dto.add(linkTo(methodOn(CategoryController.class)
+                .delete(dto.getId()))
+                .withRel("delete")
+                .withType("DELETE"));
+    }
+ }
+

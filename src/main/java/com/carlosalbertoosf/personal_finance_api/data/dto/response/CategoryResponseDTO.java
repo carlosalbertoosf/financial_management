@@ -1,8 +1,10 @@
 package com.carlosalbertoosf.personal_finance_api.data.dto.response;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Objects;
 
-public class CategoryResponseDTO {
+public class CategoryResponseDTO extends RepresentationModel<CategoryResponseDTO> {
     Long id;
     String name;
 
