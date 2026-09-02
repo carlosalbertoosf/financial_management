@@ -3,6 +3,7 @@ package com.carlosalbertoosf.personal_finance_api.services;
 import com.carlosalbertoosf.personal_finance_api.controllers.CategoryController;
 import com.carlosalbertoosf.personal_finance_api.data.dto.request.CategoryRequestDTO;
 import com.carlosalbertoosf.personal_finance_api.data.dto.response.CategoryResponseDTO;
+import com.carlosalbertoosf.personal_finance_api.exceptions.ResourceNotFoundException;
 import com.carlosalbertoosf.personal_finance_api.model.Category;
 import com.carlosalbertoosf.personal_finance_api.repository.CategoryRepository;
 import static com.carlosalbertoosf.personal_finance_api.mapper.ObjectMapper.parseObject;
@@ -28,7 +29,7 @@ public class CategoryServices {
 
     public CategoryResponseDTO findById(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category with id " + id + " not found"));
 
         var dto = parseObject(category, CategoryResponseDTO.class);
         addHateoasLinks(dto);
@@ -46,21 +47,21 @@ public class CategoryServices {
     }
 
     public CategoryResponseDTO update(Long id, CategoryRequestDTO dto) {
-      Category category = categoryRepository.findById(id)
-              .orElseThrow(() -> new RuntimeException("Category not found!"));
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Category with id " + id + " not found"));
 
-      category.setName(dto.getName());
+        category.setName(dto.getName());
 
-      categoryRepository.save(category);
+        categoryRepository.save(category);
 
-      var responseDTO = parseObject(category, CategoryResponseDTO.class);
-      addHateoasLinks(responseDTO);
-      return responseDTO;
+        var responseDTO = parseObject(category, CategoryResponseDTO.class);
+        addHateoasLinks(responseDTO);
+        return responseDTO;
     }
 
     public void delete(Long id) {
         Category category = categoryRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Category not found!"));
+                .orElseThrow(() -> new ResourceNotFoundException("Category with id " + id + " not found"));
 
         categoryRepository.delete(category);
     }
@@ -91,5 +92,4 @@ public class CategoryServices {
                 .withRel("delete")
                 .withType("DELETE"));
     }
- }
-
+}

@@ -3,6 +3,7 @@ package com.carlosalbertoosf.personal_finance_api.services;
 import com.carlosalbertoosf.personal_finance_api.controllers.UserController;
 import com.carlosalbertoosf.personal_finance_api.data.dto.request.UserRequestDTO;
 import com.carlosalbertoosf.personal_finance_api.data.dto.response.UserResponseDTO;
+import com.carlosalbertoosf.personal_finance_api.exceptions.ResourceNotFoundException;
 import com.carlosalbertoosf.personal_finance_api.model.User;
 import com.carlosalbertoosf.personal_finance_api.repository.UserRepository;
 import static com.carlosalbertoosf.personal_finance_api.mapper.ObjectMapper.parseObject;
@@ -28,7 +29,7 @@ public class UserServices {
 
     public UserResponseDTO findById(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
         var responseDTO = parseObject(user, UserResponseDTO.class);
         addHateoasLinks(responseDTO);
@@ -47,7 +48,7 @@ public class UserServices {
 
     public UserResponseDTO update(Long id, UserRequestDTO userDTO) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
         user.setName(userDTO.getName());
         user.setEmail(userDTO.getEmail());
@@ -60,7 +61,7 @@ public class UserServices {
 
     public void delete(Long id) {
         User user = userRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ResourceNotFoundException("User with id " + id + " not found"));
 
         userRepository.delete(user);
     }
